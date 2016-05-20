@@ -9,7 +9,6 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>distributed-pay-provider</module>
         <module>distribute-pay-consumer</module>
         <module>distribute-pay-provider</module>
     </modules>
