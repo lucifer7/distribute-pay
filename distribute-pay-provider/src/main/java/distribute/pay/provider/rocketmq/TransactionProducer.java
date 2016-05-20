@@ -22,13 +22,6 @@ public class TransactionProducer {
 
     @Autowired
     public TransactionProducer(TransactionMQProducer producer) {
-        // Initial producer, using auto-wired
-        //this.producer = new TransactionMQProducer(GROUP_NAME);
-        //this.producer.setNamesrvAddr(NamesrvConfig);
-        // Bind transaction listener
-        //TransactionCheckListener transactionCheckListener = new TransactionCheckListenerImpl();
-        //this.producer.setTransactionCheckListener(transactionCheckListener);
-
         this.producer = producer;
         try {
             this.producer.start();
