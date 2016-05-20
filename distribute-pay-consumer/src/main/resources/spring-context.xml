@@ -15,6 +15,8 @@
 
     <!-- 读入配置属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
+    <!-- 读取rocketmq 配置文件 -->
+    <context:property-placeholder location="classpath:rocketmq.properties" />
 
     <!-- 注释配置 -->
     <context:annotation-config/>
@@ -26,4 +28,28 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <import resource="classpath:spring-mail.xml"/>
 
+    <beans>
+
+        <bean id="consumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer">
+            <!-- rocketmq name server 地址 -->
+            <property name="namesrvAddr" value="${rocketmq.namesrv.address" />
+            <!-- 生产者集群组 -->
+            <property name="consumerGroup" value="${consumer.group_name}" />
+
+        </bean>
+
+        <!--&lt;!&ndash; 事务检查监听器 &ndash;&gt;
+        <bean id="transactionCheckListener" class="distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl"></bean>
+        &lt;!&ndash; 默认消息生产者 &ndash;&gt;
+        <bean id="producer" class="com.alibaba.rocketmq.client.producer.TransactionMQProducer">
+            &lt;!&ndash; rocketmq name server 地址 &ndash;&gt;
+            <property name="namesrvAddr" value="${rocketmq.namesrv.address" />
+            &lt;!&ndash; 生产者集群组 &ndash;&gt;
+            <property name="producerGroup" value="${producer.group_name}" />
+            &lt;!&ndash; 事务检查监听器 &ndash;&gt;
+            <property name="transactionCheckListener" ref="transactionCheckListener" />
+        </bean>
+        &lt;!&ndash; 处理事务消息的生产者 &ndash;&gt;
+        <bean id="transProducer" class="distribute.pay.provider.rocketmq.TransactionProducer"></bean>-->
+    </beans>
 </beans>
