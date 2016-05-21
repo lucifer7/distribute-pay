@@ -20,6 +20,8 @@ public class TransactionMsgTest extends AbstractTest {
     @Test
     public void transMsgTest() {
         String key = "KEY:" + System.currentTimeMillis();
+        //TODO: generate uuid key
+        //TODO: use bank account
         Message msg = new Message(TOPIC, OUT_TAG, key, "{}".getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
         log.info(sendResult.toString());

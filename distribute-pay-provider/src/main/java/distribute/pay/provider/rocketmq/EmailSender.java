@@ -24,7 +24,7 @@ public class EmailSender {
     //Group name
     private final String GROUP_NAME = "email-sender";
     //
-    private final String NAMESRV_ADDR = "10.200.157.81:9876";
+    private final String NAMESRV_ADDR = "192.168.1.16:9876;192.168.1.17:9876";
 
     private final DefaultMQProducer producer;
 
