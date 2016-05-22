@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author carl.yu
  * @since 2016/5/19
  */
-@Component
+//@Component
 public class EmailSender {
 
     //Group name
@@ -35,6 +35,21 @@ public class EmailSender {
         try {
             this.producer.start();
             System.out.println("provider start");
+
+
+            for (int i = 0; i < 1000; i++) {
+                try {
+                    Message msg = new Message("email",// topic
+                            "TagA",// tag
+                            ("Hello RocketMQ " + i).getBytes()// body
+                    );
+                    SendResult sendResult = this.producer.send(msg);
+                    System.out.println(sendResult);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (MQClientException e) {
             Throwables.propagateIfPossible(e);
         }

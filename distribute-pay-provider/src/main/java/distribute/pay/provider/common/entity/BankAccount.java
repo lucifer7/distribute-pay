@@ -1,4 +1,4 @@
-package common.entity;
+package distribute.pay.provider.common.entity;
 
 import lombok.Data;
 

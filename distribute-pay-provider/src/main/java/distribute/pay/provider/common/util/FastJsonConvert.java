@@ -1,5 +1,5 @@
 
-package common.util;
+package distribute.pay.provider.common.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

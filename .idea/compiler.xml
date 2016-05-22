@@ -28,10 +28,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="distribute-pay" target="1.5" />
-      <module name="distribute-pay-common" target="1.5" />
-      <module name="distribute-pay-consumer" target="1.5" />
-      <module name="distribute-pay-provider" target="1.5" />
+      <module name="distribute-pay" target="1.7" />
+      <module name="distribute-pay-common" target="1.7" />
+      <module name="distribute-pay-consumer" target="1.7" />
+      <module name="distribute-pay-provider" target="1.7" />
       <module name="distributed-pay-provider" target="1.5" />
     </bytecodeTargetLevel>
   </component>

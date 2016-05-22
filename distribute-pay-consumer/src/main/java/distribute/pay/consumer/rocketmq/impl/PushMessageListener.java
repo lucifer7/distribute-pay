@@ -4,8 +4,8 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.common.message.MessageExt;
-import common.entity.BankAccount;
-import common.util.FastJsonConvert;
+import distribute.pay.consumer.common.entity.BankAccount;
+import distribute.pay.consumer.common.util.FastJsonConvert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,12 +34,12 @@ public class PushMessageListener implements MessageListenerConcurrently {
             log.info("Identified by: " + keys);
             log.info(account.toString());
 
-            if("SUB".equals(account.getAction())) {
+            /*if("SUB".equals(account.getAction())) {
                 account.setBalance(account.getBalance() - account.getAdjust());
             }
-            log.info(account.getBalance() + " left in account.");
+            log.info(account.getBalance() + " left in account.");*/
         }
         //TODO: return msg status
-        return null;
+        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
     }
 }

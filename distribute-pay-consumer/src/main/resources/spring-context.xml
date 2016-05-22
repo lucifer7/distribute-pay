@@ -14,7 +14,7 @@
        default-autowire="byName" default-lazy-init="false">
 
     <!-- 读入配置属性文件 -->
-    <context:property-placeholder location="classpath:config.properties"/>
+    <!--<context:property-placeholder location="classpath:config.properties"/>-->
     <!-- 读取rocketmq 配置文件 -->
     <context:property-placeholder location="classpath:rocketmq.properties" />
 
@@ -26,17 +26,17 @@
 
     <!-- proxy-target-class默认"false",更改为"ture"使用CGLib动态代理 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <import resource="classpath:spring-mail.xml"/>
+    <!--<import resource="classpath:spring-mail.xml"/>-->
 
     <beans>
-
         <bean id="consumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer">
             <!-- rocketmq name server 地址 -->
-            <property name="namesrvAddr" value="${rocketmq.namesrv.address" />
+            <property name="namesrvAddr" value="${rocketmq.namesrv.address}" />
             <!-- 生产者集群组 -->
             <property name="consumerGroup" value="${consumer.group_name}" />
-
         </bean>
+        <!-- 处理事务消息的生产者 -->
+        <bean id="pushConsumer" class="distribute.pay.consumer.rocketmq.PushConsumer"></bean>
 
         <!--&lt;!&ndash; 事务检查监听器 &ndash;&gt;
         <bean id="transactionCheckListener" class="distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl"></bean>
