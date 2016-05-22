@@ -14,6 +14,8 @@ public class BankAccount {
     private String username;
     private String currency;
     private float balance;
+    private String action;
+    private float adjust;
 
     public BankAccount() {
     }

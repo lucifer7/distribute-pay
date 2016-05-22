@@ -27,11 +27,17 @@ public class PushMessageListener implements MessageListenerConcurrently {
             String tags = msg.getTags();
             String keys = msg.getKeys();
 
-            BankAccount account = FastJsonConvert.convertJSONToObject(new String(msg.getBody(), Charset.defaultCharset()), BankAccount.class);
+            String content = new String(msg.getBody(), Charset.defaultCharset());
+            BankAccount account = FastJsonConvert.convertJSONToObject(content, BankAccount.class);
             log.info("Receiving message, under topic: " + topic);
             log.info("With tag: " + tags);
             log.info("Identified by: " + keys);
             log.info(account.toString());
+
+            if("SUB".equals(account.getAction())) {
+                account.setBalance(account.getBalance() - account.getAdjust());
+            }
+            log.info(account.getBalance() + " left in account.");
         }
         //TODO: return msg status
         return null;
