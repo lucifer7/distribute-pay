@@ -30,6 +30,9 @@ public class TransactionCheckListenerImpl implements TransactionCheckListener {
 
     public LocalTransactionState checkLocalTransactionState(MessageExt msg) {
         System.out.println("server checking TrMsg " + msg.toString());
+
+        //TODO: add check function here, whether the transaction execute right
+
         return LocalTransactionState.COMMIT_MESSAGE;
 /*
         int value = transactionIndex.getAndIncrement();

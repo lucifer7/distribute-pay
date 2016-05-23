@@ -45,7 +45,6 @@ public class PullConsumer {
                         putMessageQueueOffset(mq, pullResult.getNextBeginOffset());
                         switch (pullResult.getPullStatus()) {
                             case FOUND:
-                                // TODO
                                 for (Message msg : pullResult.getMsgFoundList()) {
                                     System.out.println(msg.toString());
                                 }

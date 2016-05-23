@@ -63,7 +63,7 @@ public class EmailReceiver {
                 log.info("Receiving message, under topic: " + topic);
                 log.info("With tag: " + tags);
                 log.info("Identified by: " + keys);
-                //TODO: add process code here
+
                 //Mail mail = FastJsonConvert.convertJSONToObject(new String(msg.getBody(), "utf-8"), Mail.class);
                 //System.out.println(ToStringBuilder.reflectionToString(mail));
 //                mailService.mailSend(mail);
