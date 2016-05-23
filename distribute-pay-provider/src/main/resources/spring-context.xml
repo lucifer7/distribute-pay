@@ -14,7 +14,13 @@
        default-autowire="byName" default-lazy-init="false">
 
     <!-- 读入配置属性文件 -->
-    <context:property-placeholder location="classpath:rocketmq.properties"/>
+    <beans profile="lenovo">
+        <context:property-placeholder location="classpath:profiles/lenovo/rocketmq.properties"/>
+    </beans>
+
+    <beans profile="dell">
+        <context:property-placeholder location="classpath:profiles/dell/rocketmq.properties" />
+    </beans>
 
     <!-- 注释配置 -->
     <context:annotation-config/>

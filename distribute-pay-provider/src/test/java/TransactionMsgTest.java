@@ -1,7 +1,7 @@
 import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
+import distribute.pay.common.util.FastJsonConvert;
 import distribute.pay.provider.common.entity.BankAccount;
-import distribute.pay.provider.common.util.FastJsonConvert;
 import distribute.pay.provider.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.TransactionProducer;
 import org.junit.Test;

@@ -2,19 +2,17 @@ package distribute.pay.provider.rocketmq;
 
 import com.alibaba.rocketmq.client.exception.MQBrokerException;
 import com.alibaba.rocketmq.client.exception.MQClientException;
-import com.alibaba.rocketmq.client.producer.*;
+import com.alibaba.rocketmq.client.producer.SendResult;
+import com.alibaba.rocketmq.client.producer.TransactionCheckListener;
+import com.alibaba.rocketmq.client.producer.TransactionMQProducer;
 import com.alibaba.rocketmq.common.message.Message;
-import com.alibaba.rocketmq.common.namesrv.NamesrvConfig;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
-import com.google.common.base.Throwables;
 import distribute.pay.provider.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl;
 import distribute.pay.provider.rocketmq.impl.TransactionExecuterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.InitBinder;
 
 /**
  * <b>转账事务处理 - 生产者</b>

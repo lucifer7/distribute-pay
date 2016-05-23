@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>distribute-pay-distribute.pay.consumer.common</artifactId>
+    <artifactId>distribute-pay-common</artifactId>
 
 
 </project>

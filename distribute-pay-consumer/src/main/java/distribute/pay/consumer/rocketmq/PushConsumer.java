@@ -2,8 +2,8 @@ package distribute.pay.consumer.rocketmq;
 
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
-import distribute.pay.consumer.common.util.ProjectConstants;
 import distribute.pay.consumer.rocketmq.impl.PushMessageListener;
+import distribute.pay.provider.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 /**

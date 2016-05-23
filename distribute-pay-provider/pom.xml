@@ -11,4 +11,52 @@
 
     <artifactId>distribute-pay-provider</artifactId>
 
+    <!-- Profiles Configuration Start -->
+    <profiles>
+        <profile>
+            <id>lenovo</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/profiles/lenovo</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>profiles</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>dell</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/profiles/dell</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <excludes>
+                            <exclude>profiles</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+    <!-- Profiles Configuration End -->
+
+    <dependencies>
+        <dependency>
+            <groupId>lcf</groupId>
+            <artifactId>distribute-pay-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

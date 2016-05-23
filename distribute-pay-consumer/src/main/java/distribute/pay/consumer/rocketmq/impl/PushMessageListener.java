@@ -4,8 +4,8 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.common.message.MessageExt;
-import distribute.pay.consumer.common.entity.BankAccount;
-import distribute.pay.consumer.common.util.FastJsonConvert;
+import distribute.pay.common.util.FastJsonConvert;
+import distribute.pay.provider.common.entity.BankAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

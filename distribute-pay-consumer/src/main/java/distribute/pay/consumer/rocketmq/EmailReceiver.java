@@ -8,10 +8,9 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
-import distribute.pay.consumer.common.util.ProjectConstants;
+import distribute.pay.provider.common.util.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

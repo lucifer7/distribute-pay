@@ -12,7 +12,7 @@ import com.alibaba.rocketmq.client.consumer.PullResult;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageQueue;
-import distribute.pay.consumer.common.util.ProjectConstants;
+import distribute.pay.provider.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

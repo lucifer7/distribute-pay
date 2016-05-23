@@ -4,7 +4,7 @@ import com.alibaba.rocketmq.client.consumer.*;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.MessageQueue;
 import com.alibaba.rocketmq.common.protocol.heartbeat.MessageModel;
-import distribute.pay.consumer.common.util.ProjectConstants;
+import distribute.pay.provider.common.util.ProjectConstants;
 
 public class PullScheduleService {
 
