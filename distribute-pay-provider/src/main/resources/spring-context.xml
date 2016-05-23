@@ -22,19 +22,19 @@
     <!-- 扫描包起始位置 -->
     <context:component-scan base-package="distribute.pay"/>
 
-   <!-- <beans>
-        &lt;!&ndash; 事务检查监听器 &ndash;&gt;
+    <beans>
+        <!-- 事务检查监听器 -->
         <bean id="transactionCheckListener" class="distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl"></bean>
-        &lt;!&ndash; 默认消息生产者 &ndash;&gt;
+        <!-- 默认消息生产者 -->
         <bean id="producer" class="com.alibaba.rocketmq.client.producer.TransactionMQProducer">
-            &lt;!&ndash; rocketmq name server 地址 &ndash;&gt;
-            <property name="namesrvAddr" value="${rocketmq.namesrv.address" />
-            &lt;!&ndash; 生产者集群组 &ndash;&gt;
+            <!-- rocketmq name server 地址 -->
+            <property name="namesrvAddr" value="${rocketmq.namesrv.address}" />
+            <!-- 生产者集群组 -->
             <property name="producerGroup" value="${producer.group_name}" />
-            &lt;!&ndash; 事务检查监听器 &ndash;&gt;
+            <!-- 事务检查监听器 -->
             <property name="transactionCheckListener" ref="transactionCheckListener" />
         </bean>
-        &lt;!&ndash; 处理事务消息的生产者 &ndash;&gt;
-        <bean id="transProducer" class="distribute.pay.provider.rocketmq.TransactionProducer"></bean>
-    </beans>-->
+        <!-- 处理事务消息的生产者 -->
+        <!--<bean id="transProducer" class="distribute.pay.provider.rocketmq.TransactionProducer"></bean>-->
+    </beans>
 </beans>

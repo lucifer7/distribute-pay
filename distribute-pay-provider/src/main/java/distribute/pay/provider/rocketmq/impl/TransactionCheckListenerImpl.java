@@ -30,7 +30,8 @@ public class TransactionCheckListenerImpl implements TransactionCheckListener {
 
     public LocalTransactionState checkLocalTransactionState(MessageExt msg) {
         System.out.println("server checking TrMsg " + msg.toString());
-
+        return LocalTransactionState.COMMIT_MESSAGE;
+/*
         int value = transactionIndex.getAndIncrement();
         if ((value % 6) == 0) {
             throw new RuntimeException("Could not find db");
@@ -42,6 +43,6 @@ public class TransactionCheckListenerImpl implements TransactionCheckListener {
             return LocalTransactionState.COMMIT_MESSAGE;
         }
 
-        return LocalTransactionState.UNKNOW;
+        return LocalTransactionState.UNKNOW;*/
     }
 }

@@ -24,7 +24,9 @@ public class TransactionExecuterImpl implements LocalTransactionExecuter {
 
         //TODO: handle money options here
 
-        int value = transactionIndex.getAndIncrement();
+        return LocalTransactionState.COMMIT_MESSAGE;
+
+        /*int value = transactionIndex.getAndIncrement();
 
         if (value == 0) {
             throw new RuntimeException("Could not find db");
@@ -36,6 +38,6 @@ public class TransactionExecuterImpl implements LocalTransactionExecuter {
             return LocalTransactionState.COMMIT_MESSAGE;
         }
 
-        return LocalTransactionState.UNKNOW;
+        return LocalTransactionState.UNKNOW;*/
     }
 }

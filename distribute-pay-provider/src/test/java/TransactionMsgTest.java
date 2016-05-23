@@ -16,8 +16,9 @@ import static distribute.pay.provider.rocketmq.TransactionProducer.MessageConfig
  * Time: 16:17
  **/
 public class TransactionMsgTest extends AbstractTest {
-    //@Autowired
-    private TransactionProducer transProducer = new TransactionProducer();
+    @Autowired
+    private TransactionProducer transProducer;
+    //private TransactionProducer transProducer = new TransactionProducer();
 
     @Test
     public void transMsgTest() {
@@ -25,7 +26,7 @@ public class TransactionMsgTest extends AbstractTest {
 
         BankAccount account = new BankAccount();
         account.setUuid(key);
-        account.setUsername("provider0");
+        account.setUsername("provider0123");
         account.setCurrency("CNY");
         account.setBalance(3799f);
         account.setAction("SUB");
@@ -33,7 +34,7 @@ public class TransactionMsgTest extends AbstractTest {
 
         Message msg = new Message(TOPIC, OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
-        log.info(sendResult.toString());
+        log.info(sendResult);
     }
 }
 

@@ -27,7 +27,7 @@ import java.util.List;
 public class EmailReceiver {
     private static Logger log = LoggerFactory.getLogger(EmailReceiver.class);
 
-    private final String GROUP_NAME = "transaction-balance";
+    private final String GROUP_NAME = "transaction-consumer";
     private final String NAMESRV_ADDR = "10.200.157.81:9876";
     private DefaultMQPushConsumer consumer;
 
@@ -36,7 +36,7 @@ public class EmailReceiver {
             this.consumer = new DefaultMQPushConsumer(GROUP_NAME);
             this.consumer.setNamesrvAddr(NAMESRV_ADDR);
             this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-            this.consumer.subscribe("BANK_ACCOUNT_EXCHANGE", "*");
+            this.consumer.subscribe("BANK_ACCOUNT_EXCHANGE123", "*");
             this.consumer.registerMessageListener(new Listener());
             this.consumer.start();
             System.out.println("consumer start");

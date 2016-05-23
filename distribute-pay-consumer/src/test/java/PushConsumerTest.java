@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by yangjingyi on 2016-5-21.
  */
 public class PushConsumerTest extends AbstractTest {
-    @Autowired
+    //@Autowired
     private PushConsumer pushConsumer;
 
     @Test

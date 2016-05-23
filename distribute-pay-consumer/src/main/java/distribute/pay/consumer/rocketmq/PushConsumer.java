@@ -1,11 +1,17 @@
 package distribute.pay.consumer.rocketmq;
 
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
+import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
+import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
+import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
+import com.alibaba.rocketmq.common.message.MessageExt;
 import distribute.pay.consumer.rocketmq.impl.PushMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,48 +19,71 @@ import org.springframework.stereotype.Component;
  * Date: 2016/5/20
  * Time: 16:44
  **/
-//@Component
+@Component
 public class PushConsumer {
-    private static final String TOPIC = "BANK_ACCOUNT_EXCHANGE";
-    private static final String SUB_EXPRESSION = "*";
-
-    private final String GROUP_NAME = "transaction-balance";
+    private final String GROUP_NAME = "transaction-email";
     private final String NAMESRV_ADDR = "10.200.157.81:9876";
-
-    //@Autowired
     private DefaultMQPushConsumer consumer;
 
-    // 幂等/去重
-    // 批量处理，throughOut
     public PushConsumer() {
-        //this.consumer = consumer;
-        //this.consumer.setSubscription();
         try {
             this.consumer = new DefaultMQPushConsumer(GROUP_NAME);
             this.consumer.setNamesrvAddr(NAMESRV_ADDR);
             this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-            PushMessageListener msgListener = new PushMessageListener();
-            this.consumer.subscribe(TOPIC, SUB_EXPRESSION);
-            this.consumer.setMessageListener(msgListener);
+            this.consumer.subscribe("BANK_EXCHANGE", "*");
+            this.consumer.registerMessageListener(new PushMessageListener());
             this.consumer.start();
-            System.out.println("Push consumer start");
-        } catch (MQClientException e) {
+            System.out.println("consumer start");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    /*private static final String TOPIC = "BANK_ACCOUNT_EXCHANGE123";
+    private static final String SUB_EXPRESSION = "MONEY_OUT";
 
-    /*public PushConsumer(DefaultMQPushConsumer consumer) {
+    private DefaultMQPushConsumer consumer;
+
+    @Autowired
+    public PushConsumer(DefaultMQPushConsumer consumer) {
         this.consumer = consumer;
-        this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-        //this.consumer.setSubscription();
         try {
-            PushMessageListener msgListener = new PushMessageListener();
+            this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
             this.consumer.subscribe(TOPIC, SUB_EXPRESSION);
-            this.consumer.setMessageListener(msgListener);
             this.consumer.start();
             System.out.println("Push consumer start");
         } catch (MQClientException e) {
             e.printStackTrace();
         }
+    }*/
+/*
+    public static void main(String[] args) throws MQClientException {
+        //创建消费者Push对象
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("transaction-consumer");
+        //设置NameSvr
+        consumer.setNamesrvAddr("10.200.157.81:9876");
+        //订阅主题，并指明tags
+        consumer.subscribe("BANK_ACCOUNT_EXCHANGE123", "*");
+        //设置监听器对象
+        consumer.registerMessageListener(new MessageListenerConcurrently() {
+            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
+                try {
+                    for (MessageExt msg : msgs) {
+                        String topic = msg.getTopic();
+                        String msgBody = new String(msg.getBody(), "utf-8");
+                        String tags = msg.getTags();
+                        System.out.printf("收到消息：topic:%s,tags:%s,msg:%s",topic,tags,msgBody);
+                        System.out.println();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+                }
+                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            }
+        });
+        //consumer.registerMessageListener(new PushMessageListener());
+
+            //开始
+        consumer.start();
     }*/
 }

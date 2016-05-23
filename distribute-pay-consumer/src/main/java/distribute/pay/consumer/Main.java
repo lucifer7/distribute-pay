@@ -15,7 +15,7 @@ public class Main {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
         ctx.start();
         //PushConsumer consumer = new PushConsumer();
-        EmailReceiver receiver = new EmailReceiver();
+        //EmailReceiver receiver = new EmailReceiver();
     }
 
 }

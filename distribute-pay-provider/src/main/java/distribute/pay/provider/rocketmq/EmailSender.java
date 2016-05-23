@@ -18,13 +18,13 @@ import org.springframework.stereotype.Component;
  * @author carl.yu
  * @since 2016/5/19
  */
-//@Component
+@Component
 public class EmailSender {
 
     //Group name
     private final String GROUP_NAME = "email-sender";
     //
-    private final String NAMESRV_ADDR = "192.168.1.16:9876;192.168.1.17:9876";
+    private final String NAMESRV_ADDR = "10.200.157.81:9876";
 
     private final DefaultMQProducer producer;
 
@@ -37,7 +37,7 @@ public class EmailSender {
             System.out.println("provider start");
 
 
-            /*for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 10; i++) {
                 try {
                     Message msg = new Message("email",// topic
                             "TagA",// tag
@@ -49,7 +49,7 @@ public class EmailSender {
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-            }*/
+            }
         } catch (MQClientException e) {
             Throwables.propagateIfPossible(e);
         }
