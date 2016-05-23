@@ -40,7 +40,7 @@ public class TransactionProducer {
         }
     }
 
-    public SendResult sendTransactionMsg(Message msg) {
+    public SendResult sendMsg(Message msg) {
         SendResult sendResult = null;
         try {
             sendResult = this.producer.send(msg);
@@ -53,13 +53,18 @@ public class TransactionProducer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        /*TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
+        return sendResult;
+    }
+
+    public SendResult sendTransactionMsg(Message msg) {
+        SendResult sendResult = null;
+        TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
         try {
             sendResult = this.producer.sendMessageInTransaction(msg, tranExecuter, null);
         } catch (MQClientException e) {
             //Throwables.propagateIfPossible(e);
             log.error("Transaction message send error.", e);
-        }*/
+        }
         return sendResult;
     }
 

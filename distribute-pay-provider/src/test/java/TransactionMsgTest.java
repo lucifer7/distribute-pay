@@ -19,7 +19,7 @@ public class TransactionMsgTest extends AbstractTest {
     //private TransactionProducer transProducer = new TransactionProducer();
 
     @Test
-    public void transMsgTest() {
+    public void msgTest() {
         String key = "KEY:" + System.currentTimeMillis();
 
         BankAccount account = new BankAccount();
@@ -29,6 +29,23 @@ public class TransactionMsgTest extends AbstractTest {
         account.setBalance(3799.00f);
         account.setAction("SUB");
         account.setAdjust(99.90f);
+
+        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
+        SendResult sendResult = transProducer.sendTransactionMsg(msg);
+        log.info(sendResult);
+    }
+
+    @Test
+    public void transMsgTest() {
+        String key = "KEY:" + System.currentTimeMillis();
+
+        BankAccount account = new BankAccount();
+        account.setUuid(key);
+        account.setUsername("transProducer");
+        account.setCurrency("CNY");
+        account.setBalance(3799.00f);
+        account.setAction("SUB");
+        account.setAdjust(9.90f);
 
         Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
