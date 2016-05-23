@@ -22,7 +22,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="distribute-pay-common" />
         <module name="distribute-pay-consumer" />
         <module name="distribute-pay-provider" />
       </profile>

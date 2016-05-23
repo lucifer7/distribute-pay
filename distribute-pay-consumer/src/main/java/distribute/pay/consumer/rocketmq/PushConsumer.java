@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
  * Date: 2016/5/20
  * Time: 16:44
  **/
-@Component
+//@Component
 public class PushConsumer {
     private static final String TOPIC = "BANK_ACCOUNT_EXCHANGE";
     private static final String SUB_EXPRESSION = "*";
 
     private final String GROUP_NAME = "transaction-balance";
-    private final String NAMESRV_ADDR = "192.168.1.16:9876;192.168.1.17:9876";
+    private final String NAMESRV_ADDR = "10.200.157.81:9876";
 
     //@Autowired
     private DefaultMQPushConsumer consumer;

@@ -23,21 +23,31 @@ public class PushMessageListener implements MessageListenerConcurrently {
 
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
         for (MessageExt msg : list) {
-            String topic = msg.getTopic();
-            String tags = msg.getTags();
-            String keys = msg.getKeys();
+            try {
+                String topic = msg.getTopic();
+                String tags = msg.getTags();
+                String keys = msg.getKeys();
 
-            String content = new String(msg.getBody(), Charset.defaultCharset());
-            BankAccount account = FastJsonConvert.convertJSONToObject(content, BankAccount.class);
-            log.info("Receiving message, under topic: " + topic);
-            log.info("With tag: " + tags);
-            log.info("Identified by: " + keys);
-            log.info(account.toString());
+                String content = new String(msg.getBody(), Charset.defaultCharset());
+                BankAccount account = FastJsonConvert.convertJSONToObject(content, BankAccount.class);
+                log.info("Receiving message, under topic: " + topic);
+                log.info("With tag: " + tags);
+                log.info("Identified by: " + keys);
+                log.info(account.toString());
 
-            /*if("SUB".equals(account.getAction())) {
-                account.setBalance(account.getBalance() - account.getAdjust());
+                if("SUB".equals(account.getAction())) {
+                    account.setBalance(account.getBalance() - account.getAdjust());
+                }
+                log.info(account.getBalance() + " left in account.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                //重试次数为3情况
+                if (msg.getReconsumeTimes() == 3) {
+                    return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                    //记录日志
+                }
+                return ConsumeConcurrentlyStatus.RECONSUME_LATER;
             }
-            log.info(account.getBalance() + " left in account.");*/
         }
         //TODO: return msg status
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;

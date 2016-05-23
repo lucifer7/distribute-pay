@@ -19,7 +19,7 @@ public class TransactionMsgTest extends AbstractTest {
     //@Autowired
     private TransactionProducer transProducer = new TransactionProducer();
 
-    //@Test
+    @Test
     public void transMsgTest() {
         String key = "KEY:" + System.currentTimeMillis();
 

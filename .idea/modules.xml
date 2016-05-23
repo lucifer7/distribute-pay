@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/distribute-pay.iml" filepath="$PROJECT_DIR$/distribute-pay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/distribute-pay-common/distribute-pay-common.iml" filepath="$PROJECT_DIR$/distribute-pay-common/distribute-pay-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/distribute-pay.iml" filepath="$PROJECT_DIR$/distribute-pay.iml" />
       <module fileurl="file://$PROJECT_DIR$/distribute-pay-consumer/distribute-pay-consumer.iml" filepath="$PROJECT_DIR$/distribute-pay-consumer/distribute-pay-consumer.iml" />
       <module fileurl="file://$PROJECT_DIR$/distribute-pay-provider/distribute-pay-provider.iml" filepath="$PROJECT_DIR$/distribute-pay-provider/distribute-pay-provider.iml" />
     </modules>

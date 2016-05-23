@@ -37,7 +37,7 @@ public class EmailSender {
             System.out.println("provider start");
 
 
-            for (int i = 0; i < 1000; i++) {
+            /*for (int i = 0; i < 1000; i++) {
                 try {
                     Message msg = new Message("email",// topic
                             "TagA",// tag
@@ -49,7 +49,7 @@ public class EmailSender {
                 catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
         } catch (MQClientException e) {
             Throwables.propagateIfPossible(e);
         }

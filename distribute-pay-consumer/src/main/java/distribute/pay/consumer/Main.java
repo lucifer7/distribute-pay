@@ -1,5 +1,7 @@
 package distribute.pay.consumer;
 
+import distribute.pay.consumer.rocketmq.EmailReceiver;
+import distribute.pay.consumer.rocketmq.PushConsumer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -11,7 +13,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Main {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
-
+        ctx.start();
+        //PushConsumer consumer = new PushConsumer();
+        EmailReceiver receiver = new EmailReceiver();
     }
 
 }

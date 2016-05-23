@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.InitBinder;
  * Date: 2016/5/20
  * Time: 14:57
  **/
-@Component
+//@Component
 public class TransactionProducer {
     private static Logger log = LoggerFactory.getLogger(TransactionProducer.class);
     private TransactionMQProducer producer;
     private final String GROUP_NAME = "transaction-producer";
-    //
-    private final String NAMESRV_ADDR = "192.168.1.16:9876;192.168.1.17:9876";
+    private final String NAMESRV_ADDR = "10.200.157.81:9876";
 
     //@Autowired
     //public TransactionProducer(TransactionMQProducer producer) {
@@ -43,21 +42,22 @@ public class TransactionProducer {
             Throwables.propagateIfPossible(e);
         }
 
-        String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD", "TagE" };
+        /*String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD", "TagE" };
         TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 2; i++) {
+            Message msg =
+                    new Message(MessageConfig.TOPIC, tags[i % tags.length], "KEYs" + i,
+                            ("Hello RocketMQ " + i).getBytes());
+            //SendResult sendResult = sendTransactionMsg(msg);
             try {
-                Message msg =
-                        new Message(MessageConfig.TOPIC, tags[i % tags.length], "KEY" + i,
-                                ("Hello RocketMQ " + i).getBytes());
+
                 SendResult sendResult = this.producer.sendMessageInTransaction(msg, tranExecuter, null);
                 System.out.println(sendResult);
-
             }
             catch (MQClientException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
     }
 
