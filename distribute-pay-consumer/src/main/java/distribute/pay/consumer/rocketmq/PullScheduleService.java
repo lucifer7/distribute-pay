@@ -4,16 +4,16 @@ import com.alibaba.rocketmq.client.consumer.*;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.MessageQueue;
 import com.alibaba.rocketmq.common.protocol.heartbeat.MessageModel;
-
+import distribute.pay.consumer.common.util.ProjectConstants;
 
 public class PullScheduleService {
 
     public static void main(String[] args) throws MQClientException {
-        final MQPullConsumerScheduleService scheduleService = new MQPullConsumerScheduleService("transaction-consumer");
-        scheduleService.getDefaultMQPullConsumer().setNamesrvAddr("10.200.157.81:9876");
+        final MQPullConsumerScheduleService scheduleService = new MQPullConsumerScheduleService(ProjectConstants.CONSUMER_GROUP);
+        scheduleService.getDefaultMQPullConsumer().setNamesrvAddr(ProjectConstants.NAMESRV_ADDR);
 
         scheduleService.setMessageModel(MessageModel.CLUSTERING);
-        scheduleService.registerPullTaskCallback("BANK_ACCOUNT_EXCHANGE123", new PullTaskCallback() {
+        scheduleService.registerPullTaskCallback(ProjectConstants.TOPIC, new PullTaskCallback() {
 
             @Override
             public void doPullTask(MessageQueue mq, PullTaskContext context) {

@@ -8,6 +8,7 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import distribute.pay.consumer.common.util.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ public class EmailReceiver {
     private static Logger log = LoggerFactory.getLogger(EmailReceiver.class);
 
     private final String GROUP_NAME = "transaction-consumer";
-    private final String NAMESRV_ADDR = "10.200.157.81:9876";
+    private final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
     private DefaultMQPushConsumer consumer;
 
     public EmailReceiver() {

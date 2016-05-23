@@ -12,6 +12,7 @@ import com.alibaba.rocketmq.client.consumer.PullResult;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageQueue;
+import distribute.pay.consumer.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Component
 public class PullConsumer {
 
-    private static final String NAMESRV_ADDR = "10.200.157.81:9876";
+    private static final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
     private static final Map<MessageQueue, Long> offseTable = new HashMap<MessageQueue, Long>();
 
 

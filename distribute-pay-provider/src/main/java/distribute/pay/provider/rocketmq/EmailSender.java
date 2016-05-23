@@ -7,6 +7,7 @@ import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
 import com.google.common.base.Throwables;
+import distribute.pay.provider.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,13 +19,13 @@ import org.springframework.stereotype.Component;
  * @author carl.yu
  * @since 2016/5/19
  */
-@Component
+//@Component
 public class EmailSender {
 
     //Group name
     private final String GROUP_NAME = "email-sender";
     //
-    private final String NAMESRV_ADDR = "10.200.157.81:9876";
+    private final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
 
     private final DefaultMQProducer producer;
 

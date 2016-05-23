@@ -7,6 +7,7 @@ import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import distribute.pay.consumer.common.util.ProjectConstants;
 import distribute.pay.consumer.rocketmq.impl.PushMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,8 +22,8 @@ import java.util.List;
  **/
 @Component
 public class PushConsumer {
-    private final String GROUP_NAME = "transaction-email";
-    private final String NAMESRV_ADDR = "10.200.157.81:9876";
+    private final String GROUP_NAME = ProjectConstants.CONSUMER_GROUP;
+    private final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
     private DefaultMQPushConsumer consumer;
 
     public PushConsumer() {
@@ -30,7 +31,7 @@ public class PushConsumer {
             this.consumer = new DefaultMQPushConsumer(GROUP_NAME);
             this.consumer.setNamesrvAddr(NAMESRV_ADDR);
             this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-            this.consumer.subscribe("BANK_EXCHANGE", "*");
+            this.consumer.subscribe(ProjectConstants.TOPIC, ProjectConstants.CONSUMER_SUB_TAGS);
             this.consumer.registerMessageListener(new PushMessageListener());
             this.consumer.start();
             System.out.println("consumer start");
@@ -60,7 +61,7 @@ public class PushConsumer {
         //创建消费者Push对象
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("transaction-consumer");
         //设置NameSvr
-        consumer.setNamesrvAddr("10.200.157.81:9876");
+        consumer.setNamesrvAddr(ProjectConstants.NAMESRV_ADDR);
         //订阅主题，并指明tags
         consumer.subscribe("BANK_ACCOUNT_EXCHANGE123", "*");
         //设置监听器对象

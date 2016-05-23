@@ -31,12 +31,12 @@ public class PushMessageListener implements MessageListenerConcurrently {
                 String keys = msg.getKeys();
 
                 String content = new String(msg.getBody(), Charset.defaultCharset());
-                //BankAccount account = FastJsonConvert.convertJSONToObject(content, BankAccount.class);
+                BankAccount account = FastJsonConvert.convertJSONToObject(content, BankAccount.class);
                 log.info("Receiving message, under topic: " + topic);
                 log.info("With tag: " + tags);
                 log.info("Identified by: " + keys);
                 log.info(msg.toString());
-                /*if (null == account) {
+                if (null == account) {
                     log.info("Invalid account: " + content);
                     continue;
                 }
@@ -45,7 +45,7 @@ public class PushMessageListener implements MessageListenerConcurrently {
                 if("SUB".equals(account.getAction())) {
                     account.setBalance(account.getBalance() - account.getAdjust());
                 }
-                log.info(account.getBalance() + " left in account.");*/
+                log.info(account.getBalance() + " left in account.");
             } catch (Exception e) {
                 e.printStackTrace();
                 //重试次数为3情况
@@ -56,7 +56,6 @@ public class PushMessageListener implements MessageListenerConcurrently {
                 return ConsumeConcurrentlyStatus.RECONSUME_LATER;
             }
         }
-        //TODO: return msg status
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
     }
 }

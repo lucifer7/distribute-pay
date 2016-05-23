@@ -67,4 +67,16 @@ public class BankAccount {
     public void setAdjust(float adjust) {
         this.adjust = adjust;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "uuid='" + uuid + '\'' +
+                ", username='" + username + '\'' +
+                ", currency='" + currency + '\'' +
+                ", balance=" + balance +
+                ", action='" + action + '\'' +
+                ", adjust=" + adjust +
+                '}';
+    }
 }

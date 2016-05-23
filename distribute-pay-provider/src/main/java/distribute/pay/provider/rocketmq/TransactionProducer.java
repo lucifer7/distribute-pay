@@ -7,6 +7,7 @@ import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.namesrv.NamesrvConfig;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
 import com.google.common.base.Throwables;
+import distribute.pay.provider.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl;
 import distribute.pay.provider.rocketmq.impl.TransactionExecuterImpl;
 import org.slf4j.Logger;
@@ -37,35 +38,28 @@ public class TransactionProducer {
         } catch (MQClientException e) {
             log.error("Transaction producer start error.", e);
         }
-
-        /*String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD", "TagE" };
-        TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
-        for (int i = 0; i < 2; i++) {
-            Message msg =
-                    new Message(MessageConfig.TOPIC, tags[i % tags.length], "KEYs" + i,
-                            ("Hello RocketMQ " + i).getBytes());
-            //SendResult sendResult = sendTransactionMsg(msg);
-            try {
-
-                SendResult sendResult = this.producer.sendMessageInTransaction(msg, tranExecuter, null);
-                System.out.println(sendResult);
-            }
-            catch (MQClientException e) {
-                e.printStackTrace();
-            }
-        }*/
-
     }
 
     public SendResult sendTransactionMsg(Message msg) {
         SendResult sendResult = null;
-        TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
+        try {
+            sendResult = this.producer.send(msg);
+        } catch (MQClientException e) {
+            e.printStackTrace();
+        } catch (RemotingException e) {
+            e.printStackTrace();
+        } catch (MQBrokerException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /*TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
         try {
             sendResult = this.producer.sendMessageInTransaction(msg, tranExecuter, null);
         } catch (MQClientException e) {
             //Throwables.propagateIfPossible(e);
             log.error("Transaction message send error.", e);
-        }
+        }*/
         return sendResult;
     }
 
@@ -78,16 +72,11 @@ public class TransactionProducer {
         producer.shutdown();
     }
 
-    public class MessageConfig {
-        public static final String TOPIC = "BANK_EXCHANGE";
-        public static final String OUT_TAG = "MONEY_OUT";
-    }
-
     public static void main(String[] args) throws MQClientException, InterruptedException {
 
         TransactionCheckListener transactionCheckListener = new TransactionCheckListenerImpl();
-        TransactionMQProducer producer = new TransactionMQProducer("transaction-producer");
-        producer.setNamesrvAddr("10.200.157.81:9876");
+        TransactionMQProducer producer = new TransactionMQProducer(ProjectConstants.PRODUCER_GROUP);
+        producer.setNamesrvAddr(ProjectConstants.NAMESRV_ADDR);
         // 事务回查最小并发数
         /*producer.setCheckThreadPoolMinSize(2);
         // 事务回查最大并发数
@@ -102,7 +91,7 @@ public class TransactionProducer {
         for (int i = 0; i < 3; i++) {
             try {
                 Message msg =
-                        new Message(MessageConfig.TOPIC, tags[i % tags.length], "KEY" + i,
+                        new Message(ProjectConstants.TOPIC, tags[i % tags.length], "KEY" + i,
                                 ("Hello RocketMQ " + i).getBytes());
                 //SendResult sendResult = producer.send(msg);
                 SendResult sendResult = producer.sendMessageInTransaction(msg, tranExecuter, null);     //invalid transaction msg

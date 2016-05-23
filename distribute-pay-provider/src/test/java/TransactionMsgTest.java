@@ -2,12 +2,10 @@ import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
 import distribute.pay.provider.common.entity.BankAccount;
 import distribute.pay.provider.common.util.FastJsonConvert;
+import distribute.pay.provider.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.TransactionProducer;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import static distribute.pay.provider.rocketmq.TransactionProducer.MessageConfig.OUT_TAG;
-import static distribute.pay.provider.rocketmq.TransactionProducer.MessageConfig.TOPIC;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,11 +26,11 @@ public class TransactionMsgTest extends AbstractTest {
         account.setUuid(key);
         account.setUsername("provider0123");
         account.setCurrency("CNY");
-        account.setBalance(3799f);
+        account.setBalance(3799.00f);
         account.setAction("SUB");
-        account.setAdjust(99.9f);
+        account.setAdjust(99.90f);
 
-        Message msg = new Message(TOPIC, OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
+        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
         log.info(sendResult);
     }
