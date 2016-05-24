@@ -4,8 +4,9 @@ import com.alibaba.rocketmq.client.consumer.*;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.MessageQueue;
 import com.alibaba.rocketmq.common.protocol.heartbeat.MessageModel;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 
+@Deprecated
 public class PullScheduleService {
 
     public static void main(String[] args) throws MQClientException {

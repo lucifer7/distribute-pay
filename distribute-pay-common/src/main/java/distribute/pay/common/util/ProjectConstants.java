@@ -9,6 +9,7 @@ package distribute.pay.common.util;
 public class ProjectConstants {
     public static final String TOPIC = "BANK_EXCHANGE";
     public static final String OUT_TAG = "MONEY_OUT";
+    public static final String ACTION = "TRANSFER";
     /* Dell profile */
     public static final String NAMESRV_ADDR = "10.200.157.81:9876";
     /* Lenovo profile */

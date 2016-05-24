@@ -23,6 +23,8 @@
         <spring.version>4.2.6.RELEASE</spring.version>
         <httpclient.version>4.3.1</httpclient.version>
         <rocketmq.version>3.2.6</rocketmq.version>
+        <spring-data-redis.version>1.6.0.RELEASE</spring-data-redis.version>
+        <jedis.version>2.7.3</jedis.version>
     </properties>
 
     <dependencies>
@@ -206,5 +208,18 @@
             <version>1.16.8</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- redis start -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
+        </dependency>
+        <!-- redis end -->
     </dependencies>
 </project>

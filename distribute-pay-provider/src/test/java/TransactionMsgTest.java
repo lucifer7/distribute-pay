@@ -1,8 +1,8 @@
 import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
+import distribute.pay.common.entity.BankAccount;
 import distribute.pay.common.util.FastJsonConvert;
-import distribute.pay.provider.common.entity.BankAccount;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.TransactionProducer;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,34 +20,16 @@ public class TransactionMsgTest extends AbstractTest {
 
     @Test
     public void msgTest() {
-        String key = "KEY:" + System.currentTimeMillis();
-
-        BankAccount account = new BankAccount();
-        account.setUuid(key);
-        account.setUsername("provider0123");
-        account.setCurrency("CNY");
-        account.setBalance(3799.00f);
-        account.setAction("SUB");
-        account.setAdjust(99.90f);
-
-        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
-        SendResult sendResult = transProducer.sendTransactionMsg(msg);
+        BankAccount account = BankAccount.genRandomAccount();
+        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.ACTION, account.getUuid(), FastJsonConvert.convertObjectToJSON(account).getBytes());
+        SendResult sendResult = transProducer.sendMsg(msg);
         log.info(sendResult);
     }
 
     @Test
     public void transMsgTest() {
-        String key = "KEY:" + System.currentTimeMillis();
-
-        BankAccount account = new BankAccount();
-        account.setUuid(key);
-        account.setUsername("transProducer");
-        account.setCurrency("CNY");
-        account.setBalance(3799.00f);
-        account.setAction("SUB");
-        account.setAdjust(9.90f);
-
-        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.OUT_TAG, key, FastJsonConvert.convertObjectToJSON(account).getBytes());
+        BankAccount account = BankAccount.genRandomAccount();
+        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.ACTION, account.getUuid(), FastJsonConvert.convertObjectToJSON(account).getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
         log.info(sendResult);
     }

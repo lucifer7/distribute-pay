@@ -8,7 +8,7 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +24,7 @@ import java.util.List;
  * @since 2016/5/19
  */
 //@Component
+@Deprecated
 public class EmailReceiver {
     private static Logger log = LoggerFactory.getLogger(EmailReceiver.class);
 

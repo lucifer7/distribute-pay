@@ -7,7 +7,7 @@ import com.alibaba.rocketmq.client.producer.SendResult;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
 import com.google.common.base.Throwables;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 /**

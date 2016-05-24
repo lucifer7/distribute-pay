@@ -12,14 +12,15 @@ import com.alibaba.rocketmq.client.consumer.PullResult;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageQueue;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-@Component
+//@Component
+@Deprecated
 public class PullConsumer {
 
     private static final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;

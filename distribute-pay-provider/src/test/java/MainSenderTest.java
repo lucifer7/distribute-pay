@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Date: 2016/5/20
  * Time: 14:13
  **/
+@Deprecated
 public class MainSenderTest extends AbstractTest{
-    @Autowired
+    //@Autowired
     private EmailSender emailSender;
 
     @Test
