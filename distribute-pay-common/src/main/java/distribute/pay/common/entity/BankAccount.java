@@ -1,9 +1,11 @@
 package distribute.pay.common.entity;
 
-import lombok.Data;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +16,7 @@ import org.slf4j.LoggerFactory;
 //@Data
 public class BankAccount {
     private static Logger log = LoggerFactory.getLogger(BankAccount.class);
+    public static Map<String, BankAccount> accountMap = new HashMap<>();
 
     private String uuid;
     private String username;
@@ -73,6 +76,18 @@ public class BankAccount {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "uuid='" + uuid + '\'' +
+                ", username='" + username + '\'' +
+                ", currency='" + currency + '\'' +
+                ", balance=" + balance +
+                ", action='" + action + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
+
     public static BankAccount genAccountByUuid(String uuid) {
         BankAccount account = new BankAccount();
         account.setUuid(uuid);
@@ -87,4 +102,5 @@ public class BankAccount {
         String uuid = "KEY:" + System.currentTimeMillis();
         return genAccountByUuid(uuid);
     }
+
 }

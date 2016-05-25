@@ -2,8 +2,11 @@ package distribute.pay.consumer.rocketmq;
 
 import com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
+import distribute.pay.common.util.ProjectConstants;
 import distribute.pay.consumer.rocketmq.impl.PushMessageListener;
-import distribute.pay.provider.common.util.ProjectConstants;
+import lombok.extern.log4j.Log4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class PushConsumer {
+    private static Logger log = LoggerFactory.getLogger(PushConsumer.class);
+
     private final String GROUP_NAME = ProjectConstants.CONSUMER_GROUP;
     private final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
     private DefaultMQPushConsumer consumer;
@@ -23,7 +28,9 @@ public class PushConsumer {
             this.consumer = new DefaultMQPushConsumer(GROUP_NAME);
             this.consumer.setNamesrvAddr(NAMESRV_ADDR);
             this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-            this.consumer.subscribe(ProjectConstants.TOPIC, ProjectConstants.CONSUMER_SUB_TAGS);
+            this.consumer.subscribe(ProjectConstants.TOPIC, ProjectConstants.ACTION);
+            log.info(this.consumer.getSubscription().toString());
+            //this.consumer.subscribe("BANK_EXCHANGE", "*");
             this.consumer.registerMessageListener(new PushMessageListener());
             this.consumer.start();
             System.out.println("consumer start");

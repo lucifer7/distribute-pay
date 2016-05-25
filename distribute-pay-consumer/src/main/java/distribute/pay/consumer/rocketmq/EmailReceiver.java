@@ -11,6 +11,7 @@ import com.alibaba.rocketmq.common.message.MessageExt;
 import distribute.pay.common.util.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import java.util.List;
 public class EmailReceiver {
     private static Logger log = LoggerFactory.getLogger(EmailReceiver.class);
 
-    private final String GROUP_NAME = "transaction-consumer";
+    private final String GROUP_NAME = ProjectConstants.CONSUMER_GROUP;
     private final String NAMESRV_ADDR = ProjectConstants.NAMESRV_ADDR;
     private DefaultMQPushConsumer consumer;
 
@@ -37,7 +38,7 @@ public class EmailReceiver {
             this.consumer = new DefaultMQPushConsumer(GROUP_NAME);
             this.consumer.setNamesrvAddr(NAMESRV_ADDR);
             this.consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-            this.consumer.subscribe("BANK_ACCOUNT_EXCHANGE123", "*");
+            this.consumer.subscribe("BANK_EXCHANGE", "*");
             this.consumer.registerMessageListener(new Listener());
             this.consumer.start();
             System.out.println("consumer start");

@@ -46,9 +46,8 @@ public class TransactionExecuterImpl implements LocalTransactionExecuter {
     }
 
     private boolean _executeTransaction(AccountExchange accountExchange) {
-        //todo: operate on account according to sourceUuid
         String sourceUuid = accountExchange.getSourceUuid();
-        BankAccount sourceAccount = BankAccount.genAccountByUuid(sourceUuid);
+        BankAccount sourceAccount = BankAccount.accountMap.get(sourceUuid);
         if("TRANSFER".equals(accountExchange.getSourceAction())) {
             sourceAccount.setBalance(sourceAccount.getBalance() - accountExchange.getAmount());
             _updateBankAccount(sourceAccount);

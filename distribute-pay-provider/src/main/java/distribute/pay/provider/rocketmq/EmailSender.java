@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
  * @since 2016/5/19
  */
 //@Component
+    @Deprecated
 public class EmailSender {
 
     //Group name
@@ -40,8 +41,8 @@ public class EmailSender {
 
             for (int i = 0; i < 10; i++) {
                 try {
-                    Message msg = new Message("email",// topic
-                            "TagA",// tag
+                    Message msg = new Message(ProjectConstants.TOPIC,// topic
+                            ProjectConstants.ACTION,// tag
                             ("Hello RocketMQ " + i).getBytes()// body
                     );
                     SendResult sendResult = this.producer.send(msg);

@@ -7,12 +7,13 @@ import com.alibaba.rocketmq.client.producer.TransactionCheckListener;
 import com.alibaba.rocketmq.client.producer.TransactionMQProducer;
 import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
-import distribute.pay.provider.common.util.ProjectConstants;
+import distribute.pay.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl;
 import distribute.pay.provider.rocketmq.impl.TransactionExecuterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * <b>转账事务处理 - 生产者</b>
@@ -21,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Date: 2016/5/20
  * Time: 14:57
  **/
-//@Component
+@Component
 public class TransactionProducer {
     private static Logger log = LoggerFactory.getLogger(TransactionProducer.class);
 
@@ -75,17 +76,18 @@ public class TransactionProducer {
         producer.shutdown();
     }
 
-    public static void main(String[] args) throws MQClientException, InterruptedException {
+    //todo: remove
+    /*public static void main(String[] args) throws MQClientException, InterruptedException {
 
         TransactionCheckListener transactionCheckListener = new TransactionCheckListenerImpl();
         TransactionMQProducer producer = new TransactionMQProducer(ProjectConstants.PRODUCER_GROUP);
         producer.setNamesrvAddr(ProjectConstants.NAMESRV_ADDR);
         // 事务回查最小并发数
-        /*producer.setCheckThreadPoolMinSize(2);
+        *//*producer.setCheckThreadPoolMinSize(2);
         // 事务回查最大并发数
         producer.setCheckThreadPoolMaxSize(2);
         // 队列数
-        producer.setCheckRequestHoldMax(2000);*/
+        producer.setCheckRequestHoldMax(2000);*//*
         producer.setTransactionCheckListener(transactionCheckListener);
         producer.start();
 
@@ -104,20 +106,19 @@ public class TransactionProducer {
             }
             catch (MQClientException e) {
                 e.printStackTrace();
-            } /*catch (RemotingException e) {
+            } *//*catch (RemotingException e) {
                 e.printStackTrace();
             } catch (MQBrokerException e) {
                 e.printStackTrace();
-            }*/
+            }*//*
         }
 
         for (int i = 0; i < 100000; i++) {
             Thread.sleep(1000);
         }
-
         producer.shutdown();
 
-    }
+    }*/
 }
 /*
 

@@ -21,6 +21,8 @@ import com.alibaba.rocketmq.common.message.MessageExt;
 import distribute.pay.common.entity.AccountExchange;
 import distribute.pay.common.util.FastJsonConvert;
 import lombok.extern.log4j.Log4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -29,8 +31,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 未决事务，服务器回查客户端
  */
-@Log4j
 public class TransactionCheckListenerImpl implements TransactionCheckListener {
+    private static Logger log = LoggerFactory.getLogger(TransactionCheckListenerImpl.class);
+
     private AtomicInteger transactionIndex = new AtomicInteger(0);
 
     public LocalTransactionState checkLocalTransactionState(MessageExt msg) {
