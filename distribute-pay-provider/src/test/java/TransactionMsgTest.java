@@ -5,6 +5,7 @@ import distribute.pay.common.entity.BankAccount;
 import distribute.pay.common.util.FastJsonConvert;
 import distribute.pay.common.util.ProjectConstants;
 import distribute.pay.provider.rocketmq.TransactionProducer;
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,23 @@ public class TransactionMsgTest extends AbstractTest {
     @Autowired
     private TransactionProducer transProducer;
     //private TransactionProducer transProducer = new TransactionProducer();
-    AccountExchange accountExchange = new AccountExchange();
-    BankAccount account = BankAccount.genRandomAccount();
+    AccountExchange accountExchange;
+    BankAccount account;
 
-    @Before
+    //@Before
     public void initData() {
+        account = BankAccount.genRandomAccount();
         BankAccount.accountMap.put(account.getUuid(), account); //temp save BankAccount
 
+        accountExchange = new AccountExchange();
         String uuid = "DEST_KEY:" + System.currentTimeMillis();
         String transUuid = "TRANS_KEY:" + System.currentTimeMillis();
-        accountExchange.setSourceAction("TRANSFER");
+        //String transUuid = "TRANS_KEY:1464165138409";      //test Duplicate trans key
+        accountExchange.setAction(ProjectConstants.ACTION);
         accountExchange.setDestUuid(uuid);
         accountExchange.setTransUuid(transUuid);
         accountExchange.setSourceUuid(account.getUuid());
-        accountExchange.setAmount(100f);
+        accountExchange.setAmount(RandomUtils.nextFloat(0, account.getBalance()));
         log.info(accountExchange);
     }
 
@@ -47,12 +51,20 @@ public class TransactionMsgTest extends AbstractTest {
         log.info(sendResult);
     }*/
 
-    @Test
+    //@Test
     public void transMsgTest() {
         Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.ACTION, accountExchange.getTransUuid(),
                 FastJsonConvert.convertObjectToJSON(accountExchange).getBytes());
         SendResult sendResult = transProducer.sendTransactionMsg(msg);
         log.info(sendResult);
+    }
+
+    @Test
+    public void multiTransMsgTest() {
+        for(int i = 0; i < 20; i++) {
+            initData();
+            transMsgTest();
+        }
     }
 }
 

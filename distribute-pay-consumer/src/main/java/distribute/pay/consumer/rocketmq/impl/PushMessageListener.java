@@ -33,8 +33,14 @@ public class PushMessageListener implements MessageListenerConcurrently {
                 AccountExchange exchange = _getAccountExchange(msg);
                 if (exchange == null) continue;
 
+                if(_isExchangeTransDuplicate(exchange.getTransUuid())) {
+                    continue;
+                } else {
+                    AccountExchange.exchangeTransLog.put(exchange.getTransUuid(), exchange);    //save exchange value
+                }
+
                 BankAccount destAccount = BankAccount.genAccountByUuid(exchange.getDestUuid());     //生成随机账户，不从数据库读取
-                if(ProjectConstants.ACTION.equals(exchange.getSourceAction())) {
+                if(ProjectConstants.ACTION.equals(exchange.getAction())) {
                     destAccount.setBalance(destAccount.getBalance() + exchange.getAmount());
                 }
                 log.info(destAccount.getBalance() + " left in account.");
@@ -68,8 +74,19 @@ public class PushMessageListener implements MessageListenerConcurrently {
             log.info("Invalid account: " + content);
             return null;
         }
+
         log.info(exchange.toString());
         return exchange;
+    }
+
+    private boolean _isExchangeTransDuplicate(String transUuid) {
+        AccountExchange accoutExchange = AccountExchange.exchangeTransLog.get(transUuid);   //retrieve exchange value
+        if(null == accoutExchange) {
+            return false;
+        } else {
+            log.warn("Duplicate account exchange transaction, under UUID: " + transUuid);
+            return true;
+        }
     }
 
 }

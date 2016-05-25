@@ -45,6 +45,13 @@ public class TransactionCheckListenerImpl implements TransactionCheckListener {
             return LocalTransactionState.ROLLBACK_MESSAGE;
         }
 
+        /*
+        TransactionCheckListener return State test
+         */
+        //return LocalTransactionState.ROLLBACK_MESSAGE;  //sendStatus=SEND_OK, Consumer receives Message OK
+        //return LocalTransactionState.UNKNOW;            //sendStatus=SEND_OK, Consumer receives Message OK
+        //return LocalTransactionState.COMMIT_MESSAGE;      //sendStatus=SEND_OK, Consumer receives Message OK
+
         if(_checkTransExecution(accountExchange)) {
             return LocalTransactionState.COMMIT_MESSAGE;
         } else {

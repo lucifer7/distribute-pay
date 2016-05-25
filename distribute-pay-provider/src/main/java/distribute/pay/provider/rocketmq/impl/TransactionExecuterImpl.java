@@ -6,6 +6,7 @@ import com.alibaba.rocketmq.common.message.Message;
 import distribute.pay.common.entity.AccountExchange;
 import distribute.pay.common.entity.BankAccount;
 import distribute.pay.common.util.FastJsonConvert;
+import distribute.pay.common.util.ProjectConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
@@ -34,6 +35,13 @@ public class TransactionExecuterImpl implements LocalTransactionExecuter {
             return LocalTransactionState.ROLLBACK_MESSAGE;
         }
 
+        /*
+        TransactionExecuterImpl return State test
+         */
+        //return LocalTransactionState.ROLLBACK_MESSAGE;  //sendStatus=SEND_OK, Consumer receives NONE
+        //return LocalTransactionState.UNKNOW;            //sendStatus=SEND_OK, Consumer receives NONE
+        //return LocalTransactionState.COMMIT_MESSAGE;      //sendStatus=SEND_OK, Consumer receives Message OK
+
         if(_executeTransaction(accountExchange)) {
             return LocalTransactionState.COMMIT_MESSAGE;
         } else {
@@ -48,7 +56,7 @@ public class TransactionExecuterImpl implements LocalTransactionExecuter {
     private boolean _executeTransaction(AccountExchange accountExchange) {
         String sourceUuid = accountExchange.getSourceUuid();
         BankAccount sourceAccount = BankAccount.accountMap.get(sourceUuid);
-        if("TRANSFER".equals(accountExchange.getSourceAction())) {
+        if(ProjectConstants.ACTION.equals(accountExchange.getAction())) {
             sourceAccount.setBalance(sourceAccount.getBalance() - accountExchange.getAmount());
             _updateBankAccount(sourceAccount);
             return true;

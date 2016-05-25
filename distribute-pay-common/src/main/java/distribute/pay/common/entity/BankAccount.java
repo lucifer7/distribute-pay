@@ -16,14 +16,12 @@ import java.util.Map;
 //@Data
 public class BankAccount {
     private static Logger log = LoggerFactory.getLogger(BankAccount.class);
-    public static Map<String, BankAccount> accountMap = new HashMap<>();
+    public static final Map<String, BankAccount> accountMap = new HashMap<>();
 
     private String uuid;
     private String username;
     private String currency;
     private float balance;
-    private String action;
-    private float amount;
 
     public BankAccount() {
     }
@@ -60,22 +58,6 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(float amount) {
-        this.amount = amount;
-    }
-
     @Override
     public String toString() {
         return "BankAccount{" +
@@ -83,8 +65,6 @@ public class BankAccount {
                 ", username='" + username + '\'' +
                 ", currency='" + currency + '\'' +
                 ", balance=" + balance +
-                ", action='" + action + '\'' +
-                ", amount=" + amount +
                 '}';
     }
 

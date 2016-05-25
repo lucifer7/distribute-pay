@@ -2,6 +2,9 @@ package distribute.pay.common.entity;
 
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Jingyi.Yang
@@ -10,11 +13,13 @@ import lombok.Data;
  **/
 //@Data
 public class AccountExchange {
+    //TODO: add concurrency check ?
+    public static Map<String, AccountExchange> exchangeTransLog = new HashMap<>();
+
     private String transUuid;
     private String sourceUuid;
     private String destUuid;
-    private String sourceAction;
-    private String destAction;
+    private String action;
     private float amount;
 
     public AccountExchange() {
@@ -44,20 +49,12 @@ public class AccountExchange {
         this.destUuid = destUuid;
     }
 
-    public String getSourceAction() {
-        return sourceAction;
+    public String getAction() {
+        return action;
     }
 
-    public void setSourceAction(String sourceAction) {
-        this.sourceAction = sourceAction;
-    }
-
-    public String getDestAction() {
-        return destAction;
-    }
-
-    public void setDestAction(String destAction) {
-        this.destAction = destAction;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     public float getAmount() {
@@ -74,8 +71,7 @@ public class AccountExchange {
                 "transUuid='" + transUuid + '\'' +
                 ", sourceUuid='" + sourceUuid + '\'' +
                 ", destUuid='" + destUuid + '\'' +
-                ", sourceAction='" + sourceAction + '\'' +
-                ", destAction='" + destAction + '\'' +
+                ", action='" + action + '\'' +
                 ", amount=" + amount +
                 '}';
     }

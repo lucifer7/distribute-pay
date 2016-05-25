@@ -14,8 +14,7 @@
        default-autowire="byName" default-lazy-init="false">
 
     <!-- 读入配置属性文件 -->
-    <context:property-placeholder location="classpath:rocketmq.properties"/>
-
+    <context:property-placeholder location="classpath:rocketmq.properties" />
 
     <!-- 注释配置 -->
     <context:annotation-config/>
@@ -36,6 +35,6 @@
             <property name="transactionCheckListener" ref="transactionCheckListener" />
         </bean>
         <!-- 处理事务消息的生产者 -->
-        <bean id="transProducer" class="distribute.pay.provider.rocketmq.TransactionProducer"></bean>
+        <!-- <bean id="transProducer" class="distribute.pay.provider.rocketmq.TransactionProducer"></bean>-->
     </beans>
 </beans>
