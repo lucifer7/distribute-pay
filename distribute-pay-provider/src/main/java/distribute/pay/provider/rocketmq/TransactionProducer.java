@@ -2,18 +2,19 @@ package distribute.pay.provider.rocketmq;
 
 import com.alibaba.rocketmq.client.exception.MQBrokerException;
 import com.alibaba.rocketmq.client.exception.MQClientException;
+import com.alibaba.rocketmq.client.producer.MessageQueueSelector;
 import com.alibaba.rocketmq.client.producer.SendResult;
-import com.alibaba.rocketmq.client.producer.TransactionCheckListener;
 import com.alibaba.rocketmq.client.producer.TransactionMQProducer;
 import com.alibaba.rocketmq.common.message.Message;
+import com.alibaba.rocketmq.common.message.MessageQueue;
 import com.alibaba.rocketmq.remoting.exception.RemotingException;
-import distribute.pay.common.util.ProjectConstants;
-import distribute.pay.provider.rocketmq.impl.TransactionCheckListenerImpl;
 import distribute.pay.provider.rocketmq.impl.TransactionExecuterImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * <b>转账事务处理 - 生产者</b>
@@ -76,9 +77,16 @@ public class TransactionProducer {
     /*
      * 顺序消息
      */
-    public SendResult sendOrderedMsg(Message msg) {
+    public SendResult sendOrderedMsg(Message msg, Object uuid) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
         SendResult sendResult = null;
-
+        sendResult = this.producer.send(msg, new MessageQueueSelector() {
+            @Override
+            public MessageQueue select(List<MessageQueue> list, Message message, Object arg) {
+                Integer id = (Integer) arg;
+                int index = id % list.size();
+                return list.get(index);
+            }
+        }, uuid);
         return sendResult;
     }
 
