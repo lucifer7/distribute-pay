@@ -28,6 +28,9 @@ public class TransactionProducer {
 
     private TransactionMQProducer producer;
 
+    /*
+     * 消息生产者初始化，TODO： 重构为工厂方法，私有化构造器
+     */
     @Autowired
     public TransactionProducer(TransactionMQProducer producer) {
         this.producer = producer;
@@ -55,6 +58,9 @@ public class TransactionProducer {
         return sendResult;
     }
 
+    /*
+     * 事务消息
+     */
     public SendResult sendTransactionMsg(Message msg) {
         SendResult sendResult = null;
         TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
@@ -67,6 +73,15 @@ public class TransactionProducer {
         return sendResult;
     }
 
+    /*
+     * 顺序消息
+     */
+    public SendResult sendOrderedMsg(Message msg) {
+        SendResult sendResult = null;
+
+        return sendResult;
+    }
+
     public void shutdown() {
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -76,50 +91,4 @@ public class TransactionProducer {
         producer.shutdown();
     }
 
-    //todo: remove
-    /*public static void main(String[] args) throws MQClientException, InterruptedException {
-
-        TransactionCheckListener transactionCheckListener = new TransactionCheckListenerImpl();
-        TransactionMQProducer producer = new TransactionMQProducer(ProjectConstants.PRODUCER_GROUP);
-        producer.setNamesrvAddr(ProjectConstants.NAMESRV_ADDR);
-        // 事务回查最小并发数
-        *//*producer.setCheckThreadPoolMinSize(2);
-        // 事务回查最大并发数
-        producer.setCheckThreadPoolMaxSize(2);
-        // 队列数
-        producer.setCheckRequestHoldMax(2000);*//*
-        producer.setTransactionCheckListener(transactionCheckListener);
-        producer.start();
-
-        String[] tags = new String[] { "TagA", "TagB", "TagC", "TagD", "TagE" };
-        TransactionExecuterImpl tranExecuter = new TransactionExecuterImpl();
-        for (int i = 0; i < 3; i++) {
-            try {
-                Message msg =
-                        new Message(ProjectConstants.TOPIC, tags[i % tags.length], "KEY" + i,
-                                ("Hello RocketMQ " + i).getBytes());
-                //SendResult sendResult = producer.send(msg);
-                SendResult sendResult = producer.sendMessageInTransaction(msg, tranExecuter, null);     //invalid transaction msg
-                System.out.println(sendResult);
-
-                Thread.sleep(10);
-            }
-            catch (MQClientException e) {
-                e.printStackTrace();
-            } *//*catch (RemotingException e) {
-                e.printStackTrace();
-            } catch (MQBrokerException e) {
-                e.printStackTrace();
-            }*//*
-        }
-
-        for (int i = 0; i < 100000; i++) {
-            Thread.sleep(1000);
-        }
-        producer.shutdown();
-
-    }*/
 }
-/*
-
-    Caused by: com.alibaba.rocketmq.client.exception.MQClientException: The producer service state not OK, CREATE_JUST*/

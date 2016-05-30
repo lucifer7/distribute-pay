@@ -61,7 +61,7 @@ public class TransactionMsgTest extends AbstractTest {
 
     @Test
     public void multiTransMsgTest() {
-        for(int i = 0; i < 20; i++) {
+        for(int i = 0; i < 200; i++) {
             initData();
             transMsgTest();
         }
