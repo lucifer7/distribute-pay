@@ -11,5 +11,26 @@
 
     <artifactId>distribute-pay-common</artifactId>
 
+    <build>
+        <plugins>
+            <!-- install插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.1</version>
+            </plugin>
+        </plugins>
+    </build>
 
+    <dependencies>
+        <!-- lombok start -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- lombok end -->
+
+    </dependencies>
 </project>

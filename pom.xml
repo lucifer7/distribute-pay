@@ -14,25 +14,6 @@
         <module>distribute-pay-common</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <compilerVersion>1.7</compilerVersion>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok-maven-plugin</artifactId>
-                <version>1.16.8.0</version>
-            </plugin>
-        </plugins>
-    </build>
-
     <properties>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -43,7 +24,27 @@
         <rocketmq.version>3.2.6</rocketmq.version>
         <spring-data-redis.version>1.6.0.RELEASE</spring-data-redis.version>
         <jedis.version>2.7.3</jedis.version>
+        <jdk.version>1.7</jdk.version>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerVersion>${jdk.version}</compilerVersion>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+            <!-- <plugin>
+                 <groupId>org.projectlombok</groupId>
+                 <artifactId>lombok-maven-plugin</artifactId>
+                 <version>1.16.8.0</version>
+             </plugin>-->
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -220,12 +221,15 @@
             <artifactId>rocketmq-client</artifactId>
             <version>${rocketmq.version}</version>
         </dependency>
+
+        <!-- lombok start -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.8</version>
             <scope>provided</scope>
         </dependency>
+        <!-- lombok end -->
 
         <!-- redis start -->
         <dependency>
