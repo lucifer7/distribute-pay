@@ -26,14 +26,22 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <beans>
-        <bean id="messageListener" class="distribute.pay.consumer.rocketmq.impl.PushMessageListener" />
+       <!-- <bean id="messageListener" class="distribute.pay.consumer.rocketmq.impl.PushMessageListener" />
         <bean id="consumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer">
-            <!-- rocketmq name server 地址 -->
+            &lt;!&ndash; rocketmq name server 地址 &ndash;&gt;
             <property name="namesrvAddr" value="${rocketmq.namesrv.address}" />
-            <!-- 生产者集群组 -->
+            &lt;!&ndash; 生产者集群组 &ndash;&gt;
             <property name="consumerGroup" value="${consumer.group_name}" />
             <property name="messageListener" ref="messageListener" />
+        </bean>-->
+
+        <bean id="orderMessageListener" class="distribute.pay.consumer.rocketmq.impl.OrderMessageListener" />
+        <bean id="orderConsumer" class="com.alibaba.rocketmq.client.consumer.DefaultMQPushConsumer">
+            <property name="namesrvAddr" value="${rocketmq.namesrv.address}" />
+            <property name="consumerGroup" value="${consumer.group_name}" />
+            <property name="messageListener" ref="orderMessageListener" />
         </bean>
+
         <!-- 处理事务消息的生产者 -->
         <!--<bean id="pushConsumer" class="distribute.pay.consumer.rocketmq.PushConsumer"></bean>-->
     </beans>

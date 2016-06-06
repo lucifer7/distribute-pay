@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import static distribute.pay.consumer.rocketmq.util.MessagePrinter.printMsgLog;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Jingyi.Yang
@@ -28,7 +30,7 @@ public class PushMessageListener implements MessageListenerConcurrently {
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
         for (MessageExt msg : list) {
             try {
-                _printMsgLog(msg);
+                printMsgLog(msg);
 
                 AccountExchange exchange = _getAccountExchange(msg);
                 if (exchange == null) continue;
@@ -55,16 +57,6 @@ public class PushMessageListener implements MessageListenerConcurrently {
             }
         }
         return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-    }
-
-    private void _printMsgLog(MessageExt msg) {
-        String topic = msg.getTopic();
-        String tags = msg.getTags();
-        String keys = msg.getKeys();
-        log.info("Receiving message, under topic: " + topic);
-        log.info("With tag: " + tags);
-        log.info("Identified by: " + keys);
-        log.info(msg.toString());
     }
 
     private AccountExchange _getAccountExchange(MessageExt msg) {

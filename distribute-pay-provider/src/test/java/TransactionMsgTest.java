@@ -26,7 +26,7 @@ public class TransactionMsgTest extends AbstractTest {
     AccountExchange accountExchange;
     BankAccount account;
 
-    @Before
+    //@Before
     public void initData() {
         account = BankAccount.genRandomAccount();
         BankAccount.accountMap.put(account.getUuid(), account); //temp save BankAccount
@@ -62,7 +62,7 @@ public class TransactionMsgTest extends AbstractTest {
         log.info(sendResult);
     }
 
-    @Test
+    //@Test
     public void multiTransMsgTest() {
         for(int i = 0; i < 200; i++) {
             initData();
@@ -70,12 +70,17 @@ public class TransactionMsgTest extends AbstractTest {
         }
     }
 
-    //@Test
+    @Test
     public void orderedMsgTest() throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
-        Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.ACTION, accountExchange.getTransUuid(),
-                FastJsonConvert.convertObjectToJSON(accountExchange).getBytes());
-        SendResult sendResult = transProducer.sendOrderedMsg(msg, accountExchange.getSourceUuid());
-        log.info(sendResult);
+        for (int i = 0; i < 2; i++) {
+            initData();
+
+            String tag = ProjectConstants.RANDOM_ACTIONS[i % ProjectConstants.RANDOM_ACTIONS.length];
+            Message msg = new Message(ProjectConstants.TOPIC, tag, accountExchange.getTransUuid(),
+                    FastJsonConvert.convertObjectToJSON(accountExchange).getBytes());
+            SendResult sendResult = transProducer.sendOrderedMsg(msg, accountExchange.getSourceUuid());
+            log.info(sendResult);
+        }
     }
 }
 
