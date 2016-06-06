@@ -1,5 +1,7 @@
 package distribute.pay.common.entity;
 
+import lombok.Data;
+import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,60 +15,15 @@ import java.util.Map;
  * Date: 2016/5/20
  * Time: 17:10
  **/
-//@Data
+@Log4j
+@Data
 public class BankAccount {
-    private static Logger log = LoggerFactory.getLogger(BankAccount.class);
     public static final Map<String, BankAccount> accountMap = new HashMap<>();
 
     private String uuid;
     private String username;
     private String currency;
     private float balance;
-
-    public BankAccount() {
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public float getBalance() {
-        return balance;
-    }
-
-    public void setBalance(float balance) {
-        this.balance = balance;
-    }
-
-    @Override
-    public String toString() {
-        return "BankAccount{" +
-                "uuid='" + uuid + '\'' +
-                ", username='" + username + '\'' +
-                ", currency='" + currency + '\'' +
-                ", balance=" + balance +
-                '}';
-    }
 
     public static BankAccount genAccountByUuid(String uuid) {
         BankAccount account = new BankAccount();

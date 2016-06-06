@@ -62,7 +62,7 @@ public class TransactionMsgTest extends AbstractTest {
         log.info(sendResult);
     }
 
-    //@Test
+    @Test
     public void multiTransMsgTest() {
         for(int i = 0; i < 200; i++) {
             initData();
@@ -70,7 +70,7 @@ public class TransactionMsgTest extends AbstractTest {
         }
     }
 
-    @Test
+    //@Test
     public void orderedMsgTest() throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
         Message msg = new Message(ProjectConstants.TOPIC, ProjectConstants.ACTION, accountExchange.getTransUuid(),
                 FastJsonConvert.convertObjectToJSON(accountExchange).getBytes());
